@@ -201,8 +201,8 @@ class PaymentRequest(Document):
 		"""create entry"""
 
 		frappe.flags.ignore_account_permission = True
-
-		ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
+		if  self.reference_doctype and self.reference_name:
+			ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
 
 		if self.reference_doctype in ["Sales Invoice", "POS Invoice"]:
 			party_account = ref_doc.debit_to
